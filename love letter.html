@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Letter</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('https://scontent.fmnl17-5.fna.fbcdn.net/v/t39.30808-6/428195168_2687796648052387_5233200737570245834_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=783fdb&_nc_eui2=AeGM2MAk8dp71_aXzBN4XNOG2WSM6CHI3KvZZIzoIcjcqyZ4ziSgHRvFs45Q1rm82By4B79sRRj6Hyj0TO3Ve_J8&_nc_ohc=-1cYTK32vx0AX91DJx_&_nc_ht=scontent.fmnl17-5.fna&oh=00_AfAsqGYZsOMriTop0obJLWrwvmYxEcJ6feGAv1dqFwevRQ&oe=65D27A21'); /* Add background image */
+    background-size: cover;
+    background-position: center;
+  }
+  .container {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .love-letter {
+    font-size: 17px;
+    color:rgb(62, 40, 77);
+    font-family: 'Allan',bold;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+  }
+  .next-button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    margin-top: auto;
+    z-index: 3;
+  }
+  #popup {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: none;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+  }
+  #freeDate {
+    margin-bottom: 10px;
+  }
+  #yesButton {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #notes {
+    position: sticky;
+    top: 0;
+    right: 0;
+    width: 200px;
+    padding: 20px;
+    z-index: 2;
+  }
+  .sticky-note {
+    font-style: italic;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .remove-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <video autoplay muted loop>
+    <source src="background_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div id="loveLetter" class="love-letter">
+    <h1>Happy belated valentines and anniversary lovie!</h1>
+    <p><b><i>My Dearest Welthy,</i></b></p>
+    <p><b>Hello lovie happy valentines and belated anniversary po.</b></p>
+    <p><b>I just wanted to take a moment to tell you how much you mean to me. You are my sunshine on a cloudy day, my rock when I need support, and my happines when I'm on my lowest (kahit medyo lagi tayong magkaaway). Your love fills my heart with warmth and happiness.</b></p>
+    <p><b>It may not look like it but I cherish every moment we spend together, and I am grateful for the love and kindness you shower upon me every day (minsan ambon). You are the most beautiful person inside and out, and I feel incredibly lucky to have you in my life.</b></p>
+    <p><b>Thank you for being my partner, my wife, and my best friend kahit may bestfriend kang iba. I love you more than words can express, and I look forward to sharing many more beautiful moments with you, knowing na we'll pass this tough situations together.</b></p>
+    <p><b>I love you so much forever and always,</b></p>
+    <p><b><i>Your asawa Mweheheheh</i></b></p>
+  </div>
+  
+  <div id="popup">
+    <h2>When are you free for our date?</h2>
+    <input type="text" id="freeDate" placeholder="Enter date...">
+    <br>
+    <button id="yesButton">Yes</button>
+  </div>
+
+  <div id="notes"></div>
+
+  <button class="next-button" id="nextButton">Next</button>
+</div>
+
+<script>
+  document.getElementById('nextButton').addEventListener('click', function() {
+    document.getElementById('popup').style.display = 'block';
+  });
+
+  document.getElementById('yesButton').addEventListener('click', function() {
+    var freeDate = document.getElementById('freeDate').value;
+    var notesContainer = document.getElementById('notes');
+    var note = document.createElement('div');
+    note.className = 'sticky-note';
+    note.innerHTML = '<span>Our date will be on ' + freeDate + '</span><button class="remove-button">X</button>';
+    notesContainer.appendChild(note);
+    document.getElementById('popup').style.display = 'none';
+    
+    var notes = JSON.parse(localStorage.getItem('notes')) || [];
+    notes.push(note.textContent);
+    localStorage.setItem('notes', JSON.stringify(notes));
+  });
+
+  document.getElementById('notes').addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-button')) {
+      event.target.parentNode.remove();
+      
+      var notes = JSON.parse(localStorage.getItem('notes')) || [];
+      var noteText = event.target.parentNode.querySelector('span').textContent;
+      var index = notes.indexOf(noteText);
+      if (index !== -1) {
+        notes.splice(index, 1);
+        localStorage.setItem('notes', JSON.stringify(notes));
+      }
+    }
+  });
+
+  window.onload = function() {
+    var notes = JSON.parse(localStorage.getItem('notes')) || [];
+    var notesContainer = document.getElementById('notes');
+    notes.forEach(function(noteText) {
+      var note = document.createElement('div');
+      note.className = 'sticky-note';
+      note.innerHTML = '<span>' + noteText + '</span><button class="remove-button">X</button>';
+      notesContainer.appendChild(note);
+    });
+  };
+</script>
+</body>
+</html>
